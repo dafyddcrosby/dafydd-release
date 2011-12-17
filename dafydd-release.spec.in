@@ -1,0 +1,45 @@
+Name:           dafydd-release
+Version:        @VERSION@
+Release:        @RELEASE@
+Summary:        Dafydd Repository Configuration
+
+Group:          System Environment/Base
+License:        BSD
+URL:            http://dafyddcrosby.com
+Source0:        dafydd-release.repo
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildArch:      noarch
+
+Requires:       redhat-release >= %{version}
+Requires:       epel-release >= %{version}
+
+%description
+
+
+%prep
+echo "Nothing to prep"
+
+%build
+echo "Nothing to build"
+
+%install
+rm -rf $RPM_BUILD_ROOT
+
+# Create dirs
+install -d -m755 \
+  $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d
+
+# Yum .repo files
+%{__install} -p -m644 %{SOURCE0} \
+    $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%defattr(-,root,root,-)
+%config(noreplace) %{_sysconfdir}/yum.repos.d/*
+
+%changelog
+* Fri Dec 16 2011 Dafydd Crosby <dafydd@dafyddcrosby.com> 1-1
+- Initial RPM release

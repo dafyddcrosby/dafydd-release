@@ -1,0 +1,17 @@
+[dafydd]
+name=Dafydd main repo
+baseurl=http://dafyddcrosby.com/repo/rhel/$releasever/$basearch/
+enabled=1
+gpgcheck=0
+
+[dafydd-debuginfo]
+name=Dafydd debug repo
+baseurl=http://dafyddcrosby.com/repo/rhel/$releasever/$basearch/debug/
+enabled=0
+gpgcheck=0
+
+[dafydd-source]
+name=Dafydd SRPM repo
+baseurl=http://dafyddcrosby.com/repo/rhel/$releasever/SRPMS/
+enabled=0
+gpgcheck=0
