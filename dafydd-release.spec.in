@@ -7,6 +7,7 @@ Group:          System Environment/Base
 License:        BSD
 URL:            http://dafyddcrosby.com
 Source0:        dafydd-release.repo
+Source1:        RPM-GPG-KEY-dafyddcrosby.com
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 
@@ -14,7 +15,7 @@ Requires:       redhat-release >= %{version}
 Requires:       epel-release >= %{version}
 
 %description
-
+This package enables the repositories from dafyddcrosby.com
 
 %prep
 echo "Nothing to prep"
@@ -27,7 +28,12 @@ rm -rf $RPM_BUILD_ROOT
 
 # Create dirs
 install -d -m755 \
-  $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d
+  $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d \
+  $RPM_BUILD_ROOT%{_sysconfdir}/pki/rpm-gpg
+
+# GPG Key
+%{__install} -Dp -m644 %{SOURCE0} \
+    $RPM_BUILD_ROOT%{_sysconfdir}/pki/rpm-gpg
 
 # Yum .repo files
 %{__install} -p -m644 %{SOURCE0} \
@@ -38,8 +44,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
+%{_sysconfdir}/pki/rpm-gpg/*
 %config(noreplace) %{_sysconfdir}/yum.repos.d/*
 
 %changelog
+* Sat Dec 17 2011 Dafydd Crosby <dafydd@dafyddcrosby.com> 2-1
+- Adding GPG key
+
 * Fri Dec 16 2011 Dafydd Crosby <dafydd@dafyddcrosby.com> 1-1
 - Initial RPM release

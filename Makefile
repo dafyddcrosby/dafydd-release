@@ -1,6 +1,6 @@
 name=dafydd-release
-version=1
-release=3
+version=2
+release=1
 
 clean:
 	rm -rf $(name).spec *~ 
@@ -10,5 +10,5 @@ clean:
 	sed -e 's/@VERSION@/$(version)/' -e 's/@RELEASE@/$(release)/' \
 	$(name).spec.in > $(name).spec
 
-rpm: $(name).spec
+rpm: clean $(name).spec
 	rpmbuild -ba $(name).spec --target=noarch
